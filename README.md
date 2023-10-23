@@ -12,7 +12,7 @@
 
 这一系列文章可以分为三篇，每一篇都分别有Ubuntu、macOS和Windows 10三个版本。这三篇的标题和大纲如下：
 
-* K8s部署前后端分离的web app避坑系列指南之一：Shopping List Web App简介与在本地开发环境里跑通（2023版）
+* K8s部署前后端分离的web app避坑系列指南之一：在本地开发环境、docker compose和k8s云集群里跑通（2023版）
 
   - 太长不读
 
@@ -42,35 +42,39 @@
 
     在本地开发环境里跑通（Ubuntu/macOS/Windows10版先后写）
 
-* K8s部署前后端分离的web app避坑系列指南之二：在Docker Compose里跑通（2023版）
+    Docker compose环境准备（Ubuntu/macOS/Windows10版先后写）
+
+    在docker compose里跑通（Ubuntu/macOS/Windows10版先后写）
+
+    K8s云集群环境准备（Ubuntu/macOS/Windows10版先后写）
+
+    在k8s云集群里跑通（Ubuntu/macOS/Windows10版先后写）
+
+* K8s部署前后端分离的web app避坑系列指南之二：解读Dockerfile和docker-compose.yml文件（2023版）
 
   - 太长不读
 
     Shopping List Web App在docker compose里的架构 (c4 model)
 
-    如何验证在docker compose里跑通
-
   - 深入阅读
+  
+    解读Dockerfile
     
-    Docker compose环境准备（Ubuntu/macOS/Windows10版先后写）
-
-    在docker compose里跑通（Ubuntu/macOS/Windows10版先后写）
-
+    解读docker-compose.yml文件
     
-* K8s部署前后端分离的web app避坑系列指南之三：在K8s云集群里跑通时踩CORS坑与避坑（2023版）
+* K8s部署前后端分离的web app避坑系列指南之三：解读k8s的deployment、service和ingress配置文件（2023版）
 
   - 太长不读
 
-    Shopping List Web App在k8s云集群里部署踩坑前的架构 (c4 model)
-
-    Shopping List Web App在k8s云集群里部署踩坑后的架构 (c4 model)
-
-    如何验证在k8s云集群里跑通
+    Shopping List Web App在k8s云集群里的架构 (c4 model)
 
   - 深入阅读
     
-    K8s云集群环境准备（Ubuntu/macOS/Windows10版先后写）
-
-    在k8s云集群里跑通（Ubuntu/macOS/Windows10版先后写）
+    解读k8s的deployment配置文件
+    
+    解读k8s的service配置文件
+    
+    解读k8s的ingress配置文件
+    
 
 	
