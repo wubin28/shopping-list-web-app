@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15.4
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: shoppingList
+    volumes:
+      - shopping-list-postgres-data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: admin@gmail.com
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    volumes:
+      - shopping-list-pgadmin-data:/var/lib/pgadmin
+
+  shopping-list-api:
+    image: wubin28/shopping-list-api:v1.0.docker-compose
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/shoppingList
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    depends_on:
+      - postgres
+
+  shopping-list-front-end:
+    image: wubin28/shopping-list-front-end:v1.0.docker-compose
+    ports:
+      - "8080:8080"
+    depends_on:
+      - shopping-list-api
+
+volumes:
+  shopping-list-postgres-data:
+  shopping-list-pgadmin-data:
