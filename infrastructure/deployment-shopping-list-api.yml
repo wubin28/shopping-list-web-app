@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: shopping-list-api
+  name: shopping-list-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shopping-list-api
+  template:
+    metadata:
+      labels:
+        app: shopping-list-api
+    spec:
+      containers:
+      - name: shopping-list-api
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8081
+        image: wubin28/shopping-list-api:v1.1.cors-allows-localhost
+        env:
+        - name: DB_HOST
+          value: shopping-list-postgres
+        - name: ALLOWED_ORIGIN
+          value: http://20.72.168.185:8080

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: shopping-list-front-end
+  name: shopping-list-front-end
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shopping-list-front-end
+  template:
+    metadata:
+      labels:
+        app: shopping-list-front-end
+    spec:
+      containers:
+      - name: shopping-list-front-end
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        image: wubin28/shopping-list-front-end:v1.1.no8081
+        env:
+        - name: API_URL
+          value: shopping-list-api

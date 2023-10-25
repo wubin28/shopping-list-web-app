@@ -19,13 +19,19 @@ RUN npm run build
 # Production stage
 FROM node:lts-alpine AS production-stage
 
-# Install simple http server for serving static content
-RUN npm install -g http-server
+# Install simple http server for serving static content and other utilities
+RUN npm install -g http-server && apk add --no-cache bash
 
 WORKDIR /app
 
 # Copy the built app from the build stage
 COPY --from=build-stage /app/dist ./dist
 
+# Copy the entrypoint script
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod a+x /entrypoint.sh
+
 EXPOSE 8080
-CMD [ "http-server", "dist", "--spa" ]
+
+# Use the entrypoint script as the entry point
+CMD ["/entrypoint.sh"]

@@ -17,7 +17,7 @@ public class ShoppingListApplicationConfig {
                 registry.addMapping(
                     "/api/v1/shopping-items/**"
                 ).allowedOrigins(
-                    "http://localhost:8080"
+                    System.getenv("ALLOWED_ORIGIN")
                 ).allowedMethods(
                     "GET", "POST", "PUT", "DELETE");
             }

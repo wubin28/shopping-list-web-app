@@ -12,7 +12,7 @@ const shoppingItems = ref([])
 
 async function loadShoppingItems() {
   try {
-    const response = await axios.get('http://localhost:8081/api/v1/shopping-items')
+    const response = await axios.get('http://%%API_URL%%/api/v1/shopping-items')
     shoppingItems.value = response.data
     console.log('ShoppingItems', shoppingItems.value)
   } catch (error) {
@@ -28,7 +28,7 @@ interface ShoppingItem {
 
 async function createShoppingItem(shoppingItem: ShoppingItem) {
   console.log('ShoppingItem', shoppingItem)
-  await axios.post('http://localhost:8081/api/v1/shopping-items', {
+  await axios.post('http://%%API_URL%%/api/v1/shopping-items', {
     item: shoppingItem.item,
     purchased: shoppingItem.purchased
   })
@@ -41,7 +41,7 @@ async function createShoppingItem(shoppingItem: ShoppingItem) {
 
 async function updateShoppingItem(shoppingItem: ShoppingItem) {
   console.log('ShoppingItem', shoppingItem)
-  await axios.put(`http://localhost:8081/api/v1/shopping-items/${shoppingItem.id}`, {
+  await axios.put(`http://%%API_URL%%/api/v1/shopping-items/${shoppingItem.id}`, {
     id: shoppingItem.id,
     item: shoppingItem.item,
     purchased: shoppingItem.purchased
@@ -61,7 +61,7 @@ function cancelDelete() {
 }
 
 async function deleteShoppingItemById(shoppingItem: ShoppingItem) {
-  await axios.delete(`http://localhost:8081/api/v1/shopping-items/${shoppingItem.id}`)
+  await axios.delete(`http://%%API_URL%%/api/v1/shopping-items/${shoppingItem.id}`)
   ElMessage({
     message: 'Shopping Item deleted',
     type: 'success'
