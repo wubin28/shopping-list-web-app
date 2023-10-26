@@ -19,9 +19,9 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8081
-        image: wubin28/shopping-list-api:v1.1.cors-allows-localhost
+        image: wubin28/shopping-list-api:v1.1.k8s
         env:
         - name: DB_HOST
           value: shopping-list-postgres
         - name: ALLOWED_ORIGIN
-          value: http://20.72.168.185:8080
+          value: "http://20.72.130.209/"

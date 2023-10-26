@@ -1,4 +1,3 @@
-
 #!/bin/sh
 
 # Replace the placeholder with the actual value of the API_URL environment variable
