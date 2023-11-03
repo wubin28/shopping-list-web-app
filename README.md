@@ -1,4 +1,4 @@
-# 【万字长文】K8s部署前后端分离的web应用避坑系列指南之一：在本地开发环境、本地docker compose和k8s云集群里跑通购物清单应用（macOS-2023-11-03--12-11版）
+# 【万字长文】K8s部署前后端分离的web应用避坑系列指南之一：在本地开发环境、本地docker compose和k8s云集群里跑通购物清单应用（macOS-2023-11-03--12-38版）
 
 ![乘着k8s在云原生世界里探索](cover-image.png)
 
@@ -415,7 +415,7 @@ Azure k8s service云平台免费注册方法参见：https://azure.microsoft.com
 既然用户所使用的浏览器，只看到ingress nginx controller所对外暴露的IP和端口，那么之后前端app访问后端app获取数据，就都在同一个ingress nginx controller所对外暴露的IP和端口下，这样对浏览器来说，就不存在CORS的跨域问题了。如图9所示。
 
 
-![图9 Shopping list web app在k8s云集群里的的container架构图](f-9.jpg)
+![图9 Shopping list web app在k8s云集群里的的container架构图](./f-9.png)
 图9 Shopping list web app在k8s云集群里的的container架构图
 
 #### 2.5.4 如何从坑里爬出来

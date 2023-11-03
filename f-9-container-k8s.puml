@@ -1,0 +1,30 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Container.puml
+
+' LAYOUT_TOP_DOWN()
+' LAYOUT_AS_SKETCH()
+LAYOUT_WITH_LEGEND()
+
+title Container diagram for Shopping List Web App  Deployed on a Kubernetes Cluster
+
+Person(user, "User", "An user who intends to create or manage a shopping list.")
+
+System_Boundary(system-boundary, "Shopping List Web App") {
+    Container(shoppingListFrontEnd, "Shopping List Front End", "vue.js 3.3.4", "A web interface allowing users to interact with and manage their shopping lists.")
+    Container(shoppingListApi, "Shopping List API", "Spring boot 3.1.4", "An API layter facilitating operations on shopping list items and interfacing between the front end and the database.")
+    Container(postgres, "PostgreSQL Database", "PostgreSQL 15.4", "The database storing all shopping list data.")
+    System_Ext(ingress, "Shopping List Ingress", "Governs how external HTTP/S traffic is processed and directed to the different services within the k8s cluster.")
+}
+
+
+Rel(user, ingress, "Views and modifies shopping lists", "JSON/HTTP")
+
+Rel(ingress, shoppingListFrontEnd, "Views and modifies shopping lists", "JSON/HTTP")
+Rel(ingress, shoppingListApi, "Sends API requests to manage shopping items", "JSON/HTTP")
+
+Rel(shoppingListFrontEnd, shoppingListApi, "Sends requests to manage shopping items", "JSON/HTTP")
+Rel(shoppingListApi, postgres, "Queries and updates shopping data", "JDBC")
+
+@enduml
