@@ -1,0 +1,16 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Context.puml
+
+LAYOUT_WITH_LEGEND()
+
+title System Context diagram for Shopping List Web App Deployed on a Kubernetes Cluster
+
+Person(user, "User", "An user who intends to create or manage a shopping list.")
+
+System(shoppingListWebApp, "Shopping List Web App", "A system designed to store and manage shopping lists, providing users a reminder of items to purchase.")
+
+Rel(user, shoppingListWebApp, "Interacts with shopping lists", "JSON/HTTP")
+
+@enduml

@@ -407,7 +407,7 @@ Azure k8s service云平台免费注册方法参见：https://azure.microsoft.com
 在k8s云集群里，就难以使用pgadmin数据库管理工具了。所以图8的context架构图只有user。
 
 
-![图8 Shopping list web app在k8s云集群里的的context架构图](f-8.jpg)
+![图8 Shopping list web app在k8s云集群里的的context架构图](./f-8.png)
 图8 Shopping list web app在k8s云集群里的的context架构图
 
 咱们这个web app，用户不再直接访问前端app的对外IP和端口，而是直接访问ingress nginx controller的对外IP和端口。之后，ingress nginx controller会把用户的请求，根据请求的path不同，分发给前端app和后端app。而前后端app就不必拥有对外的IP和端口了。
