@@ -98,27 +98,12 @@ Shopping List Web App在本地开发环境里的架构，如果用c4 model（htt
 
 图3是站在整个web app的边界，向外看的context图。在系统外，有user和admin这两种用户在使用系统。User使用系统来管理购物清单。Admin使用系统来管理购物清单数据。
 
-```mermaid
-    C4Context
-      title System Context diagram for Shopping List Web App
-
-      Person(user, "User", "An user who intends to create or manage a shopping list.")
-      Person(admin, "Admin", "An administrator responsible for overseeing and managing shopping list data.")
-
-      System(shoppingListWebApp, "Shopping List Web App", "A system designed to store and manage shopping lists, providing users a reminder of items to purchase.")
-
-      Rel(user, shoppingListWebApp, "Interacts with shopping lists", "JSON/HTTP")
-
-      Rel(admin, shoppingListWebApp, "Oversees and manages shopping lists", "JSON/HTTP")
-
-      UpdateLayoutConfig($c4ShapeInRow="2", $c4BoundaryInRow="1")
-```
+![图3 Shopping list web app在本地开发环境里的的context架构图](./f-3.png)
 图3 Shopping list web app在本地开发环境里的的context架构图
 
 图4是站在整个web app的边界，向内看的container图。在系统内，有4个容器。注意c4 model里的container的概念，和docker的container的概念，是不同的。前者是代表架构图中运行的应用或数据存储系统，后者代表封装了所有代码和依赖库能独立运行的软件运行单元。User通过前端shopping-list-front-end来查看和修改购物清单。而前端shopping-list-front-end将用户对购物清单的操作请求，发给后端shopping-list-api。后端shopping-list-api再访问数据库postgres查询和更新数据。Admin通过使用pgadmin数据库管理工具来直接管理postgres数据库中的数据。
 
-
-![图4 Shopping list web app在本地开发环境里的container架构图](f-4.jpg)
+![图4 Shopping list web app在本地开发环境里的container架构图](./f-4.png)
 图4 Shopping list web app在本地开发环境里的container架构图
 
 #### 2.3.2 本地开发环境准备
