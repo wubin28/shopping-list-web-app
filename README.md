@@ -1,8 +1,6 @@
-# 【万字长文】K8s部署前后端分离的web应用避坑系列指南之一：在本地开发环境、本地docker compose和k8s云集群里跑通购物清单应用（macOS-2023-11-03--12-38版）
-
+# 【万字长文】K8s部署前后端分离的web应用避坑系列指南之一：从源代码到docker compose再到k8s云集群（macOS-2023-11-03--12-43版）
+​
 ![乘着k8s在云原生世界里探索](cover-image.png)
-
-
 > 做软件的人：“工作体验好，好事才能来。”
 
 ## 1 太长不读
@@ -55,7 +53,7 @@ K8s部署前后端分离的web应用避坑系列指南之二：解读购物清�
 
 K8s部署前后端分离的web应用避坑系列指南之三：解读购物清单应用k8s的deployment、service和ingress配置文件
 
-这一系列指南相关的源代码在这里下载：https://github.com/wubin28/shopping-list-web-app。
+这一系列指南相关的源代码在这里下载：https://github.com/wubin28/shopping-list-web-app。如果下载不了，可以试试这里：https://gitee.com/wubin28/shopping-list-web-app。
 
 要想找到这一系列文章的最新版本，可以在知乎搜“体验更好地做软件”专栏。
 
@@ -252,7 +250,7 @@ CORS（跨源资源共享）是浏览器的一种安全设置。如果后端app�
 
 看起来前端在访问后端时，使用了这个ingress，从而导致CORS错误。要是我把docker desktop里的kubernetes给关掉，是不是就会好了。于是在docker desktop的settings中，选择Kubernetes，再把Enable Kubernetes的勾选项取消勾选，重启docker desktop。这样就删除了那个ingress。为了保险，再清除一下浏览器cache。再次访问前端。一切正常！
 
-如果你有兴趣，可以用Insomnia或postman验证后端app接口。之前clone下来的代码里，有一个`Insomnia_2023-10-06.json`文件，可以安装Insomnia（参见：https://insomnia.rest/），创建一个collection，并在里面import这个文件来验证后端app接口。相比postman来说，Insomnia对于初学者更加轻量和易用。
+如果你有兴趣，可以用Insomnia或postman验证后端app接口。之前clone下来的代码里，有一个`Insomnia_2023-10-06.json`文件，可以安装Insomnia（参见：https://insomnia.rest/ ），创建一个collection，并在里面import这个文件来验证后端app接口。相比postman来说，Insomnia对于初学者更加轻量和易用。
 
 至此，shopping list web app就已经在本地开发环境里跑通了。
 
@@ -354,8 +352,11 @@ Docker hub是Docker公司搞的一个存储docker image的公共注册（registr
 
 Azure k8s service云平台免费注册方法参见：https://azure.microsoft.com/。
 
-注册完后，可以创建一个名为`my-k8s-cluster-1`的k8s service，以及名为`my-azure-resource-group-1`的resource group。然后登录主页`https://portal.azure.com/#home`，就能看到你所拥有的资源，如图7所示。
+注册完后，可以按照下面的步骤，创建一个名为`my-k8s-cluster-1`的k8s cluster，以及名为`my-azure-resource-group-1`的resource group。
 
+https://portal.azure.com主页 -> 点击左上角“+”Create a resource -> 在左边Categories中，选择Containers，然后点击右边的Azure Kubernetes Service (AKS)下边的Create链接 -> 进入"Create Kubernetes cluster"页面进行创建。
+
+完成创建后，登录主页`https://portal.azure.com/#home`，就能看到你所拥有的资源，如图7所示。
 
 ![图7 你在azure k8s service云平台上所拥有的资源](f-7.png)
 图7 你在azure k8s service云平台上所拥有的资源
@@ -398,7 +399,7 @@ Azure k8s service云平台免费注册方法参见：https://azure.microsoft.com
 
 后来也是查了很多资料，在朋友圈求助，经过朋友们的提醒，并尝试了一下，发现为shopping list web app配置ingress能解决这个难题。
 
-朋友圈里提醒我的朋友，包括陈计节、Gary施红军、Martin刘征、谭雅威、残月、刘天玮、Kerry王克瑞、一兮等，在此表示感谢！
+朋友圈里提醒我的朋友，包括**陈计节、Gary施红军、Martin刘征、谭雅威、残月、刘天玮、Kerry王克瑞、一兮**等，在此表示感谢！
 
 在k8s里，ingress是一种规则和配置的集合，它能帮助外部的网络请求，来查找到和访问集群内的服务。可以把它想象成一个交通指挥员，它知道如何根据特定的规则把外面来的车辆（网络请求）引导到正确的停车位（服务）。
 
@@ -503,7 +504,7 @@ helm install ingress-nginx-release ingress-nginx-repo/ingress-nginx \
  --set controller.service.annotations."service\.beta\.kubernetes\.io/azure-load-balancer-health-probe-request-path"=/healthz
 ```
 
-安装完后，可以运行`helm list -n $NAMESPACE`验证一下。
+安装完后，可以运行`helm list -n $NAMESPACE验证一下。还可以运行命令kubectl get services -o wide -n $NAMESPACE`来查看所创建的ingress-nginx-release-controller的对外IP地址。
 
 接下来就可以用kubectl，运行下面命令，来往k8s云集群里部署postgres、shopping-list-api、shopping-list-front-end和ingress了。
 
@@ -514,9 +515,9 @@ helm install ingress-nginx-release ingress-nginx-repo/ingress-nginx \
 验证pod是否正常启动：`kubectl get pods -o wide -n $NAMESPACE`
 如果pod启动异常查看出错信息：`kubectl describe pod <pod name, such as first-pod> -n $NAMESPACE`
 如果pod启动异常查看最后一个container的出错信息：`kubectl logs <pod name, such as first-pod> --previous --n $NAMESPACE`
-
 部署postgres的service：`kubectl apply -f ./service-postgres.yml --namespace $NAMESPACE`
 验证服务是否正常启动：`kubectl get services -o wide -n $NAMESPACE`
+
 
 部署shopping-list-api的deployment：`kubectl apply -f ./deployment-shopping-list-api.yml --namespace $NAMESPACE`
 验证image是否正确：`kubectl get deployments -o wide -n $NAMESPACE`
@@ -533,12 +534,32 @@ helm install ingress-nginx-release ingress-nginx-repo/ingress-nginx \
 
 
 部署ingress：`kubectl apply -f ./ingress.yml --namespace $NAMESPACE`
-查看ingress的状态：kubectl get ingresses -n $NAMESPACE
-查看ingress的详情：kubectl describe ingress <ingress name> -n $NAMESPACE
-如果一切顺利，没有出错，那么就可以运行命令`kubectl get services -o wide -n $NAMESPACE`，查看ingress nginx controller对外暴露的IP和端口，以便让我们试用web app。假设我们查看到的IP是20.72.130.209。而端口一般是80。
+查看ingress的状态：`kubectl get ingresses -n $NAMESPACE`
+查看ingress的详情：`kubectl describe ingress shopping-list-ingress -n $NAMESPACE`
+如果一切顺利，没有出错，那么就可以运行命令`kubectl get services -o wide -n $NAMESPACE`，查看ingress nginx controller对外暴露的IP和端口，以便让我们试用web app。假设我们查看到的IP是4.236.205.218。而端口一般是80。
 ```
 
-打开浏览器，访问`http://20.72.130.209/`。如果一切正常，就能在上面愉快地管理购物项了。
+打开浏览器，访问`http://4.236.205.218/`。如果一切正常，就能在上面愉快地管理购物项了。
+
+不过一般不会正常。不信你在浏览器的Developer Tools的console里查看一下。应该会出现类似下面的出错信息。
+
+```
+Access to XMLHttpRequest at 'http://20.72.130.209/api/v1/shopping-items' from origin 'Shopping List App' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+```
+
+浏览器发现，从源http://4.236.205.218来的访问http://20.72.130.209/api/v1/shopping-items的请求，因为没有CORS相关的header，而拒绝你访问。
+
+这是为啥？20.72.130.209又是什么鬼？如果你打开文件infrastructure/deployment-shopping-list-front-end.yml，找到最后一行，就能看到这个地址。这是前端app访问后端app时，所配置的后端URL的环境变量。在前端app代码中访问后端app时使用。20.72.130.209这个IP，是我当初获得的ingress nginx controller的对外IP，一般与你所获得的不同。所以会报错。
+
+此时的解决方案，是把这个文件中的地址，改为你所获得的ingress nginx controller的对外IP，其实就是前面所查看到的4.236.205.218，然后重新部署一下deployment-shopping-list-front-end.yml即可。其他配置文件因为没有修改，所以不用再重新部署。
+
+```
+部署shopping-list-front-end的deployment：`kubectl apply -f ./deployment-shopping-list-front-end.yml -n $NAMESPACE` 
+验证image是否正确：`kubectl get deployments -o wide -n $NAMESPACE` 
+验证pod是否正常启动：`kubectl get pods -o wide -n $NAMESPACE` 
+```
+
+打开浏览器，刷新一下`http://4.236.205.218/`的页面。一般来说，浏览器还是会报上面的错误。此时把浏览器的cache清除一下，再次刷新，就一切正常！
 
 **清理现场**
 
