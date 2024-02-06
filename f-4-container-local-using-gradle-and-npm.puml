@@ -7,16 +7,16 @@
 ' LAYOUT_AS_SKETCH()
 LAYOUT_WITH_LEGEND()
 
-title Container diagram for Shopping List Web App  Deployed on Local Machine
+title Container diagram for Shopping List Web App  Deployed on Local Machine Using Gradle and npm
 
 Person(user, "User", "An user who intends to create or manage a shopping list.")
 Person(admin, "Admin", "An administrator responsible for overseeing and managing shopping list data.")
 
 System_Boundary(system-boundary, "Shopping List Web App") {
-    Container(shoppingListFrontEnd, "Shopping List Front End", "vue.js 3.3.4", "A web interface allowing users to interact with and manage their shopping lists.")
-    Container(shoppingListApi, "Shopping List API", "Spring boot 3.1.4", "An API layter facilitating operations on shopping list items and interfacing between the front end and the database.")
-    Container(postgres, "PostgreSQL Database", "PostgreSQL 15.4", "The database storing all shopping list data.")
-    Container(pgadmin, "pgAdmin PostgreSQL Tools", "pgadmin 4", "A management tool for the Postgres database, allowing administrators to manage shopping list data directly.")
+    Container(shoppingListFrontEnd, "Shopping List Front End", "vue.js 3.3.4 / npm", "A web interface allowing users to interact with and manage their shopping lists.")
+    Container(shoppingListApi, "Shopping List API", "Spring boot 3.1.4 / gradle", "An API layter facilitating operations on shopping list items and interfacing between the front end and the database.")
+    Container(postgres, "PostgreSQL Database", "PostgreSQL 15.4 / docker compose", "The database storing all shopping list data.")
+    Container(pgadmin, "pgAdmin PostgreSQL Tools", "pgadmin 4 / docker compose", "A management tool for the Postgres database, allowing administrators to manage shopping list data directly.")
 }
 
 Rel(user, shoppingListFrontEnd, "Views and modifies shopping lists", "JSON/HTTP")

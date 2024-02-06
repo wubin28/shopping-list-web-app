@@ -5,7 +5,7 @@
 
 LAYOUT_WITH_LEGEND()
 
-title System Context diagram for Shopping List Web App Deployed on Local Machine
+title System Context diagram for Shopping List Web App Deployed on Local Machine Using Gradle and npm
 
 Person(user, "User", "An user who intends to create or manage a shopping list.")
 Person(admin, "Admin", "An administrator responsible for overseeing and managing shopping list data.")
